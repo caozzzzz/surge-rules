@@ -15,6 +15,18 @@
 - `rules/twitter.list`：Twitter / X（自动同步）
 - `rules/tiktok.list`：TikTok（自动同步）
 - `rules/china.list`：中国大陆 IPv4 规则（自动同步）
+- `icons/`：自有 Surge 策略组图标（256×256 PNG）
+- `scripts/generate-icons.py`：图标生成源文件，可统一改色并重新生成
+
+## 自有图标
+
+策略组图标由本仓库自行托管，不依赖第三方图标仓库。配置使用以下格式引用：
+
+```ini
+icon-url=https://raw.githubusercontent.com/caozzzzz/surge-rules/main/icons/ai.png
+```
+
+在本地运行 `python scripts/generate-icons.py` 可以重新生成整套图标。
 
 ## Surge 引用
 
