@@ -4,8 +4,8 @@
 
 ## 目录
 
-- `rules/openai.list`：OpenAI / ChatGPT
-- `rules/apple-ai.list`：Apple Intelligence / Private Relay
+- `rules/openai.list`：OpenAI / ChatGPT（自动同步）
+- `rules/apple-ai.list`：Apple Intelligence / Private Relay（自动同步）
 - `rules/netflix.list`：Netflix（自动同步）
 - `rules/telegram.list`：Telegram（自动同步）
 - `rules/twitter.list`：Twitter / X（自动同步）
