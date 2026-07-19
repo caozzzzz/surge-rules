@@ -41,6 +41,8 @@ jobs:
           download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Twitter/Twitter.list" "rules/twitter.list"
           download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TikTok/TikTok.list" "rules/tiktok.list"
           download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMax/ChinaMax_No_IPv6.list" "rules/china.list"
+          download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list" "rules/openai.list"
+          download "https://ruleset.skk.moe/List/non_ip/apple_intelligence.conf" "rules/apple-ai.list"
 
       - name: Validate Surge rule format
         run: python scripts/validate_rules.py
