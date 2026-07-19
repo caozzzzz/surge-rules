@@ -139,8 +139,16 @@ def cycle(draw):
 
 
 def x_logo(draw):
-    draw.line((72, 67, 184, 189), fill="white", width=25)
-    draw.line((184, 67, 72, 189), fill="white", width=25)
+    # Official X-inspired asymmetric crossed ribbons.
+    draw.polygon([(59, 55), (93, 55), (198, 201), (164, 201)], fill="white")
+    draw.polygon([(170, 55), (198, 55), (84, 201), (56, 201)], fill="white")
+
+
+def netflix_logo(draw):
+    # Three-ribbon construction remains legible even at Surge's small icon size.
+    draw.rectangle((70, 52, 101, 204), fill=(181, 0, 17))
+    draw.rectangle((155, 52, 186, 204), fill=(181, 0, 17))
+    draw.polygon([(70, 52), (101, 52), (186, 204), (155, 204)], fill=(229, 9, 20))
 
 
 def shield(draw):
@@ -151,11 +159,12 @@ def shield(draw):
 
 def apple(draw, ai=False):
     # Recognizable Apple-inspired silhouette: twin shoulders, lower lobes, leaf and bite.
-    draw.ellipse((62, 86, 142, 183), fill="white")
-    draw.ellipse((108, 80, 188, 183), fill="white")
-    draw.polygon([(72, 137), (183, 132), (166, 190), (145, 211), (116, 211), (91, 188)], fill="white")
-    draw.ellipse((137, 47, 174, 76), fill="white")
-    draw.ellipse((170, 91, 202, 124), fill=(79, 116, 194) if ai else (50, 52, 61))
+    draw.ellipse((58, 86, 145, 180), fill="white")
+    draw.ellipse((105, 80, 190, 180), fill="white")
+    draw.polygon([(66, 132), (185, 128), (174, 178), (151, 211), (123, 214), (94, 190)], fill="white")
+    draw.ellipse((135, 43, 173, 76), fill="white")
+    # Match the local gradient so the bite reads as a cut-out instead of a dark dot.
+    draw.ellipse((169, 91, 205, 127), fill=(63, 123, 194) if ai else (60, 63, 74))
     if ai:
         draw.polygon([(185, 44), (193, 66), (215, 74), (193, 82), (185, 104), (177, 82), (155, 74), (177, 66)], fill=(255, 220, 61))
 
@@ -176,16 +185,16 @@ save("singapore", ((238, 50, 69), (177, 20, 53)), flag_sg)
 save("taiwan", ((46, 88, 190), (220, 43, 58)), flag_tw)
 save("proxy", ((91, 66, 245), (45, 151, 255)), rocket)
 save("final", ((30, 184, 134), (14, 128, 108)), cycle)
-save("netflix", ((40, 40, 46), (4, 4, 7)), lambda d: centered(d, "N", 140, fill=(229, 9, 20)))
+save("netflix-v3", ((40, 40, 46), (4, 4, 7)), netflix_logo)
 save("telegram", ((54, 174, 238), (29, 122, 205)), plane)
-save("x", ((54, 58, 68), (8, 9, 12)), x_logo)
+save("x-v3", ((54, 58, 68), (8, 9, 12)), x_logo)
 save("tiktok", ((38, 38, 45), (8, 8, 12)), tiktok)
 save("ai", ((123, 61, 242), (21, 186, 213)), sparkle)
 save("spotify", ((30, 215, 96), (15, 135, 66)), spotify)
 save("youtube", ((255, 62, 62), (210, 9, 34)), lambda d: play(d, False))
 save("youtube-music", ((246, 46, 66), (172, 8, 38)), lambda d: play(d, True))
 save("apple-ai", ((95, 73, 230), (30, 190, 205)), lambda d: apple(d, True))
-save("apple", ((83, 88, 101), (28, 30, 36)), lambda d: apple(d, False))
+save("apple-v3", ((83, 88, 101), (28, 30, 36)), lambda d: apple(d, False))
 save("adblock", ((244, 74, 84), (181, 27, 52)), shield)
 
 print(f"Generated 18 icons in {OUT}")
