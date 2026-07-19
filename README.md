@@ -4,8 +4,12 @@
 
 ## 目录
 
-- `rules/openai.list`：OpenAI / ChatGPT（自动同步）
+- `rules/ai.list`：AI 合集，包含 ChatGPT、Gemini 等（自动同步）
+- `rules/openai.list`：旧 OpenAI 兼容文件，不再由主配置引用
 - `rules/apple-ai.list`：Apple Intelligence / Private Relay（自动同步）
+- `rules/spotify.list`：Spotify（自动同步）
+- `rules/youtube.list`：YouTube（自动同步）
+- `rules/youtube-music.list`：YouTube Music（自动同步）
 - `rules/netflix.list`：Netflix（自动同步）
 - `rules/telegram.list`：Telegram（自动同步）
 - `rules/twitter.list`：Twitter / X（自动同步）
@@ -20,12 +24,15 @@
 [Rule]
 DOMAIN-SUFFIX,raw.githubusercontent.com,Proxy
 
-RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/openai.list,Proxy,extended-matching
+RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/ai.list,AI,extended-matching
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/apple-ai.list,Apple-AI,extended-matching
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/netflix.list,Netflix
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/telegram.list,Telegram,no-resolve
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/twitter.list,Twitter
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/tiktok.list,TikTok
+RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/spotify.list,Spotify
+RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/youtube-music.list,YouTube-Music
+RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/youtube.list,YouTube
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/china.list,DIRECT
 GEOIP,CN,DIRECT
 FINAL,Final,dns-failed
