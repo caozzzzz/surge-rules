@@ -48,6 +48,39 @@ def save(name, colors, painter):
     image.save(OUT / f"{name}.png", optimize=True)
 
 
+def save_apple_icon(name, colors, ai=False):
+    """Render a clean Apple-inspired silhouette using a subtractive mask."""
+    image, _ = canvas(*colors)
+    mask = Image.new("L", (SIZE, SIZE), 0)
+    md = ImageDraw.Draw(mask)
+
+    # Main fruit: two shoulders merging into a softly tapered lower body.
+    md.ellipse((48, 78, 151, 199), fill=255)
+    md.ellipse((102, 75, 205, 199), fill=255)
+    md.polygon([(57, 124), (199, 119), (181, 184), (154, 216), (126, 221), (95, 205), (70, 177)], fill=255)
+
+    # Signature top valley, right-side bite, and subtle lower cleft.
+    md.ellipse((113, 62, 151, 104), fill=0)
+    md.ellipse((172, 91, 216, 137), fill=0)
+    md.polygon([(126, 215), (140, 215), (133, 225)], fill=0)
+
+    # Tilted leaf rendered separately for a crisp, official-logo-like profile.
+    leaf = Image.new("L", (72, 48), 0)
+    ImageDraw.Draw(leaf).ellipse((8, 8, 64, 38), fill=255)
+    leaf = leaf.rotate(-35, resample=Image.Resampling.BICUBIC, expand=True)
+    mask.paste(leaf, (126, 34), leaf)
+
+    white = Image.new("RGBA", (SIZE, SIZE), "white")
+    image.paste(white, (0, 0), mask)
+
+    if ai:
+        draw = ImageDraw.Draw(image)
+        draw.polygon([(202, 38), (209, 58), (229, 65), (209, 72), (202, 93), (195, 72), (175, 65), (195, 58)], fill=(255, 224, 80))
+        draw.ellipse((55, 43, 67, 55), fill=(207, 244, 255))
+
+    image.save(OUT / f"{name}.png", optimize=True)
+
+
 def plane(draw):
     draw.polygon([(45, 126), (211, 52), (161, 207), (123, 151), (84, 176), (93, 139)], fill="white")
     draw.polygon([(93, 139), (177, 83), (123, 151)], fill=(210, 230, 255))
@@ -193,8 +226,8 @@ save("ai", ((123, 61, 242), (21, 186, 213)), sparkle)
 save("spotify", ((30, 215, 96), (15, 135, 66)), spotify)
 save("youtube", ((255, 62, 62), (210, 9, 34)), lambda d: play(d, False))
 save("youtube-music", ((246, 46, 66), (172, 8, 38)), lambda d: play(d, True))
-save("apple-ai-v4", ((95, 73, 230), (30, 190, 205)), lambda d: apple(d, True))
-save("apple-v4", ((83, 88, 101), (28, 30, 36)), lambda d: apple(d, False))
+save_apple_icon("apple-ai-v5", ((103, 70, 242), (23, 190, 211)), ai=True)
+save_apple_icon("apple-v5", ((91, 96, 108), (22, 24, 29)), ai=False)
 save("adblock", ((244, 74, 84), (181, 27, 52)), shield)
 
 print(f"Generated 18 icons in {OUT}")
