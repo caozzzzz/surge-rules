@@ -47,6 +47,7 @@ jobs:
           download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list" "rules/spotify.list"
           download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTube/YouTube.list" "rules/youtube.list"
           download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/YouTubeMusic/YouTubeMusic.list" "rules/youtube-music.list"
+          download "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/AdvertisingLite/AdvertisingLite.list" "rules/adblock.list"
 
       - name: Validate Surge rule format
         run: python scripts/validate_rules.py
