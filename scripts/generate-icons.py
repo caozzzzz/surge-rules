@@ -1,5 +1,5 @@
 from pathlib import Path
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import math
 
 SIZE = 256
@@ -49,26 +49,33 @@ def save(name, colors, painter):
 
 
 def save_apple_icon(name, colors, ai=False):
-    """Render a clean Apple-inspired silhouette using a subtractive mask."""
+    """Render the Apple silhouette extracted from the user's approved reference."""
     image, _ = canvas(*colors)
+    reference_rows = [
+        [(27, 30)], [(26, 30)], [(24, 29)], [(24, 29)], [(23, 29)],
+        [(22, 28)], [(21, 28)], [(21, 27)], [(21, 26)], [(21, 25)],
+        [(21, 23)], [], [(9, 14), (27, 33)], [(7, 17), (24, 36)],
+        [(6, 20), (22, 37)], [(4, 38)], [(3, 39)], [(3, 38)], [(2, 37)],
+        [(1, 36)], [(1, 35)], [(1, 35)], [(0, 34)], [(0, 34)],
+        [(0, 34)], [(0, 34)], [(0, 34)], [(0, 34)], [(0, 34)],
+        [(0, 34)], [(0, 34)], [(0, 35)], [(0, 35)], [(1, 36)],
+        [(1, 37)], [(1, 38)], [(1, 40)], [(2, 40)], [(2, 40)],
+        [(3, 40)], [(3, 39)], [(4, 39)], [(4, 38)], [(5, 38)],
+        [(5, 37)], [(6, 37)], [(7, 36)], [(8, 35)], [(9, 19), (23, 34)],
+        [(10, 16), (26, 33)],
+    ]
+    reference = Image.new("L", (41, 50), 0)
+    rd = ImageDraw.Draw(reference)
+    for y, runs in enumerate(reference_rows):
+        for start, end in runs:
+            rd.line((start, y, end, y), fill=255)
+
+    # Preserve the approved reference proportions and center it optically.
+    logo = reference.resize((115, 140), resample=Image.Resampling.LANCZOS)
     mask = Image.new("L", (SIZE, SIZE), 0)
-    md = ImageDraw.Draw(mask)
-
-    # Main fruit: two shoulders merging into a softly tapered lower body.
-    md.ellipse((48, 78, 151, 199), fill=255)
-    md.ellipse((102, 75, 205, 199), fill=255)
-    md.polygon([(57, 124), (199, 119), (181, 184), (154, 216), (126, 221), (95, 205), (70, 177)], fill=255)
-
-    # Signature top valley, right-side bite, and subtle lower cleft.
-    md.ellipse((113, 62, 151, 104), fill=0)
-    md.ellipse((172, 91, 216, 137), fill=0)
-    md.polygon([(126, 215), (140, 215), (133, 225)], fill=0)
-
-    # Tilted leaf rendered separately for a crisp, official-logo-like profile.
-    leaf = Image.new("L", (72, 48), 0)
-    ImageDraw.Draw(leaf).ellipse((8, 8, 64, 38), fill=255)
-    leaf = leaf.rotate(-35, resample=Image.Resampling.BICUBIC, expand=True)
-    mask.paste(leaf, (126, 34), leaf)
+    mask.paste(logo, ((SIZE - 115) // 2, 59))
+    # The supplied reference is very small; soften only the enlarged edge pixels.
+    mask = mask.filter(ImageFilter.GaussianBlur(0.65))
 
     white = Image.new("RGBA", (SIZE, SIZE), "white")
     image.paste(white, (0, 0), mask)
@@ -226,8 +233,8 @@ save("ai", ((123, 61, 242), (21, 186, 213)), sparkle)
 save("spotify", ((30, 215, 96), (15, 135, 66)), spotify)
 save("youtube", ((255, 62, 62), (210, 9, 34)), lambda d: play(d, False))
 save("youtube-music", ((246, 46, 66), (172, 8, 38)), lambda d: play(d, True))
-save_apple_icon("apple-ai-v5", ((103, 70, 242), (23, 190, 211)), ai=True)
-save_apple_icon("apple-v5", ((91, 96, 108), (22, 24, 29)), ai=False)
+save_apple_icon("apple-ai-v6", ((103, 70, 242), (23, 190, 211)), ai=True)
+save_apple_icon("apple-v6", ((91, 96, 108), (22, 24, 29)), ai=False)
 save("adblock", ((244, 74, 84), (181, 27, 52)), shield)
 
 print(f"Generated 18 icons in {OUT}")
