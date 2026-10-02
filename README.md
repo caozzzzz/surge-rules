@@ -15,18 +15,21 @@
 - `rules/twitter.list`：Twitter / X（自动同步）
 - `rules/tiktok.list`：TikTok（自动同步）
 - `rules/china.list`：中国大陆 IPv4 规则（自动同步）
-- `icons/`：自有 Surge 策略组图标（256×256 PNG）
-- `scripts/generate-icons.py`：图标生成源文件，可统一改色并重新生成
+- `icons/`：Essential 系列策略组图标（256×256、透明背景 PNG）
+- `icons/source/`：18 枚独立图标的设计源图片
+- `scripts/generate-icons.py`：统一尺寸、留白并生成图标，保留旧版 URL 兼容文件
 
 ## 自有图标
 
 策略组图标由本仓库自行托管，不依赖第三方图标仓库。配置使用以下格式引用：
 
 ```ini
-icon-url=https://raw.githubusercontent.com/caozzzzz/surge-rules/main/icons/ai.png
+icon-url=https://raw.githubusercontent.com/caozzzzz/surge-rules/main/icons/ai.png?v=essential-20261002
 ```
 
-在本地运行 `python scripts/generate-icons.py` 可以重新生成整套图标。
+Essential 系列采用无底板的独立符号，保留品牌和地区辨识度。Airport 使用客机剪影，Proxy 使用蓝紫交错流线表达流量转发。图标设计由 ImageGen 制作，再从透明图集中拆分为独立源图片。
+
+在本地安装 Pillow 后运行 `python scripts/generate-icons.py`，可以从 `icons/source/` 重新生成整套图标。所有图标统一输出为 256×256 RGBA PNG，符号置于 208×208 的内容区域，保留透明留白。每日自动同步也使用这些源图片，避免恢复旧版图标。旧版带版本号的图标文件仍保留并同步生成，以兼容已下载的配置。
 
 ## Surge 引用
 
