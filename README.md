@@ -34,7 +34,7 @@ Essential 系列采用无底板的独立符号，保留品牌和地区辨识度�
 
 ## 首次导入
 
-`surge.conf` 可先导入查看策略组与图标。Zus、Zjp 使用合法端口和示例 UUID，无法实际连接；使用前请修改为真实节点或删除，并同步移除策略组中的引用。Airport 暂时引用这两个示例节点，添加真实机场订阅时，将其 `Zus,Zjp` 改为 `policy-path=你的完整订阅URL`，并将订阅域名规则中的 `example.com` 改为实际订阅域名。本地控制 API 默认注释关闭。
+`surge.conf` 预置了本仓库的可下载示例订阅 `examples/subscription.list`，四个地区组均有名称匹配的示例节点，示例节点不能实际连接。使用时只需将 Airport 行 `policy-path=` 后面的 URL 替换为你的 Surge 格式完整订阅 URL，再把订阅域名规则中的 `example.com` 改成真实订阅域名。Airport 的 `hidden=1` 可改为 `hidden=0` 以显示入口。Zus、Zjp 是独立示例节点，可修改或删除；删除时也要从 Proxy🪁 策略组移除引用。本地控制 API 默认注释关闭。不要将真实订阅 Token 提交到公开仓库。
 
 ## Surge 引用
 
