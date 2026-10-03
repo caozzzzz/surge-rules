@@ -6,6 +6,7 @@
 
 - `rules/ai.list`：AI 合集，包含 ChatGPT、Gemini 等（自动同步）
 - `rules/openai.list`：旧 OpenAI 兼容文件，不再由主配置引用
+- `rules/apple.list`：普通 Apple 服务（自动同步）
 - `rules/apple-ai.list`：Apple Intelligence / Private Relay（自动同步）
 - `rules/spotify.list`：Spotify（自动同步）
 - `rules/youtube.list`：YouTube（自动同步）
@@ -29,7 +30,7 @@ icon-url=https://raw.githubusercontent.com/caozzzzz/surge-rules/main/icons/ai.pn
 
 Essential 系列采用无底板的独立符号，保留品牌和地区辨识度。Airport 使用客机剪影，Proxy 使用蓝紫交错流线表达流量转发。图标设计由 ImageGen 制作，再从透明图集中拆分为独立源图片。
 
-在本地安装 Pillow 后运行 `python scripts/generate-icons.py`，可以从 `icons/source/` 重新生成整套图标。所有图标统一输出为 256×256 RGBA PNG，符号置于 208×208 的内容区域，保留透明留白。每日自动同步也使用这些源图片，避免恢复旧版图标。旧版带版本号的图标文件仍保留并同步生成，以兼容已下载的配置。
+在本地运行 `python -m pip install -r requirements-icons.txt` 安装固定版本依赖后运行 `python scripts/generate-icons.py`，可以从 `icons/source/` 重新生成整套图标。所有图标统一输出为 256×256 RGBA PNG，符号置于 208×208 的内容区域，保留透明留白。图标源图片、生成脚本或依赖发生变化时自动生成，也可手动运行 Generate policy icons；每日规则同步不再重新生成图标。旧版带版本号的图标文件仍保留并同步生成，以兼容已下载的配置。
 
 ## 首次导入
 
@@ -43,8 +44,9 @@ Essential 系列采用无底板的独立符号，保留品牌和地区辨识度�
 [Rule]
 DOMAIN-SUFFIX,raw.githubusercontent.com,Proxy
 
-RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/ai.list,AI,extended-matching
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/apple-ai.list,Apple-AI,extended-matching
+RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/ai.list,AI,extended-matching
+RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/apple.list,Apple
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/netflix.list,Netflix
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/telegram.list,Telegram,no-resolve
 RULE-SET,https://raw.githubusercontent.com/caozzzzz/surge-rules/main/rules/twitter.list,Twitter
@@ -62,3 +64,5 @@ FINAL,Final,dns-failed
 ## 自动更新
 
 GitHub Actions 每天北京时间 06:20 同步上游规则，并在提交前执行格式检查。也可以在仓库的 Actions 页面手动运行 `Sync Surge rules`。
+
+香港策略组使用 fallback，按节点列表优先级选择可用节点，故障时自动切换；Apple-AI 优先于 AI 和普通 Apple 规则匹配。

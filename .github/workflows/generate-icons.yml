@@ -1,0 +1,44 @@
+name: Generate policy icons
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'icons/source/**'
+      - 'scripts/generate-icons.py'
+      - 'requirements-icons.txt'
+      - '.github/workflows/generate-icons.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-surge-rules
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install pinned icon dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-icons.txt
+      - name: Generate policy icons
+        run: python scripts/generate-icons.py
+      - name: Commit generated icons
+        shell: bash
+        run: |
+          git add icons
+          if git diff --cached --quiet; then
+            echo "Icons are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: generate policy icons"
+          git pull --rebase origin main
+          git push origin HEAD:main
