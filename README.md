@@ -40,7 +40,7 @@ Essential 系列采用无底板的独立符号，保留品牌和地区辨识度�
 2. 在文本编辑中，将 Airport 行 `policy-path=` 后的示例 URL 替换为自己的完整订阅 URL，并将规则中的 `example.com` 换成订阅域名。
 3. 更新 Airport 订阅，在 Proxy🪁 中选择真实地区组或 Airport。若选择 Airport，需要在其中选择真实节点；可临时把 `hidden=1` 改为 `hidden=0` 显示入口。地区筛选依赖节点名称中的香港/HK、美国/US、新加坡/SG、台湾/TW 等关键词。
 4. 应用组默认跟随 Proxy🪁；已有配置可能保留旧选择，需要手动确认。Apple 默认直连。
-5. 资源下载默认直连。已有可用代理后，若 GitHub 或订阅直连失败，可把资源下载组切换为 Proxy🪁。
+5. GitHub 和订阅下载跟随 Proxy🪁 当前选择；需要代理访问时，请在 Proxy🪁 中选择真实可用节点或地区组。
 
 如果 GitHub Raw 下载发生 TLS 错误，可以获取 `surge-offline.conf` 文件，通过 Surge 的 Import from Other Apps 导入。此版本内置规则和直连地区演示项，没有生效的远程订阅或图标依赖；按 Airport 附近的注释启用自己的订阅。离线规则是生成时的快照，更新需重新获取文件。
 
