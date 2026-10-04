@@ -34,7 +34,17 @@ Essential 系列采用无底板的独立符号，保留品牌和地区辨识度�
 
 ## 首次导入
 
-`surge.conf` 预置了本仓库的可下载示例订阅 `examples/subscription.list`，四个地区组均有名称匹配的示例节点，示例节点不能实际连接。使用时只需将 Airport 行 `policy-path=` 后面的 URL 替换为你的 Surge 格式完整订阅 URL，再把订阅域名规则中的 `example.com` 改成真实订阅域名。Airport 的 `hidden=1` 可改为 `hidden=0` 以显示入口。Zus、Zjp 是独立示例节点，可修改或删除；删除时也要从 Proxy🪁 策略组移除引用。本地控制 API 默认注释关闭。不要将真实订阅 Token 提交到公开仓库。
+本项目提供分流配置，不提供代理节点。每个人需填写自己的 Surge 格式订阅。
+
+1. 导入 `surge.conf`。首次使用默认直连；示例订阅中的地区项也是直连演示，不会访问虚假节点。
+2. 在文本编辑中，将 Airport 行 `policy-path=` 后的示例 URL 替换为自己的完整订阅 URL，并将规则中的 `example.com` 换成订阅域名。
+3. 更新 Airport 订阅，在 Proxy🪁 中选择真实地区组或 Airport。若选择 Airport，需要在其中选择真实节点；可临时把 `hidden=1` 改为 `hidden=0` 显示入口。地区筛选依赖节点名称中的香港/HK、美国/US、新加坡/SG、台湾/TW 等关键词。
+4. 应用组默认跟随 Proxy🪁；已有配置可能保留旧选择，需要手动确认。Apple 默认直连。
+5. 资源下载默认直连。已有可用代理后，若 GitHub 或订阅直连失败，可把资源下载组切换为 Proxy🪁。
+
+如果 GitHub Raw 下载发生 TLS 错误，可以获取 `surge-offline.conf` 文件，通过 Surge 的 Import from Other Apps 导入。此版本内置规则和直连地区演示项，没有生效的远程订阅或图标依赖；按 Airport 附近的注释启用自己的订阅。离线规则是生成时的快照，更新需重新获取文件。
+
+配置尚未下载时，其中的策略不会生效。不能保证 GitHub URL 在所有网络都可访问，可通过聊天、文件共享等方式分发离线配置。不要把个人订阅 Token 提交到公开仓库。
 
 ## Surge 引用
 

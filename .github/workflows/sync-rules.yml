@@ -53,10 +53,13 @@ jobs:
       - name: Validate Surge rule format
         run: python scripts/validate_rules.py
 
+      - name: Build offline profile
+        run: python scripts/build-offline-profile.py
+
       - name: Commit updates
         shell: bash
         run: |
-          git add rules
+          git add rules surge-offline.conf
 
           if git diff --cached --quiet; then
             echo "Rules are already current."
