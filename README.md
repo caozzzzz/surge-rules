@@ -68,3 +68,5 @@ GitHub Actions 每天北京时间 06:20 同步上游规则，并在提交前执�
 香港策略组使用 fallback，按节点列表优先级选择可用节点，故障时自动切换；Apple-AI 优先于 AI 和普通 Apple 规则匹配。
 
 LAN 检查分为两层：开头使用 `RULE-SET,LAN,DIRECT,no-resolve`，避免为判断是否内网而提前解析所有域名；应用规则之后、国内规则之前保留 `RULE-SET,LAN,DIRECT`，继续识别域名解析出的内网地址。应用规则优先于后面的 LAN 检查；如果自定义内网域名可能命中应用规则，应在开头显式添加其直连规则。此调整不影响应用规则自身可能触发的 DNS 查询。
+
+QUIC 使用 Surge 原生 `block-quic = all-proxy`：经代理转发的 QUIC 被阻止，让 YouTube 等客户端回退到 HTTPS/TCP；DIRECT 流量可使用 QUIC。不再使用按国家判断的 UDP/443 拦截规则，因此也不再一概拒绝其他相应 UDP/443 流量。该开关影响所有代理 QUIC，不仅限于 YouTube。
